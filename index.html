@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Financiamento - Bragança Veículos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Bragança Veículos" class="logo">
+        </div>
+        <div class="mode-selector">
+            <button id="btn-modo-veiculo" class="active">Foco no Veículo</button>
+            <button id="btn-modo-parcela">Foco na Parcela</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="input-section">
+            <div class="card">
+                <div class="input-group" id="group-valor-veiculo">
+                    <label for="valor-veiculo">Valor do Veículo (R$)</label>
+                    <input type="number" id="valor-veiculo" step="100" placeholder="Ex: 50000">
+                </div>
+
+                <div class="input-group" id="group-valor-parcela-desejada" style="display: none;">
+                    <label for="parcela-desejada">Parcela Desejada (R$)</label>
+                    <input type="number" id="parcela-desejada" step="10" placeholder="Ex: 1200">
+                </div>
+
+                <div class="input-group">
+                    <label for="valor-entrada">Entrada (R$)</label>
+                    <div class="input-with-buttons">
+                        <input type="number" id="valor-entrada" step="100" placeholder="Ex: 10000">
+                        <button type="button" id="btn-add-entrada">+ R$ 2.000</button>
+                    </div>
+                    <input type="range" id="slider-entrada" min="0" max="100" value="20">
+                </div>
+
+                <div class="input-group">
+                    <label for="valor-usado">Valor Veículo Usado (Opcional)</label>
+                    <input type="number" id="valor-usado" step="100" placeholder="Ex: 15000">
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label for="taxa-juros">Taxa de Juros (% a.m.)</label>
+                        <input type="number" id="taxa-juros" step="0.01" value="2.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="prazo">Prazo (meses)</label>
+                        <div class="input-with-buttons">
+                            <select id="prazo">
+                                <option value="12">12x</option>
+                                <option value="24">24x</option>
+                                <option value="36" selected>36x</option>
+                                <option value="48">48x</option>
+                                <option value="60">60x</option>
+                            </select>
+                            <button type="button" id="btn-add-prazo">+ 12x</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extras-toggle">
+                    <button id="btn-toggle-extras">Mais Opções (Taxas/Seguro)</button>
+                </div>
+
+                <div id="extras-container" style="display: none;">
+                    <div class="input-group">
+                        <label for="taxa-documentacao">Documentação (R$)</label>
+                        <input type="number" id="taxa-documentacao" step="10" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="valor-seguro">Seguro (R$)</label>
+                        <input type="number" id="valor-seguro" step="10" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="data-primeira">Data 1ª Parcela</label>
+                        <input type="date" id="data-primeira">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="result-section">
+            <div class="card highlight">
+                <h2>Resultado da Simulação</h2>
+                <div class="main-result" id="res-container-parcela">
+                    <span class="label">Parcela Mensal</span>
+                    <span class="value" id="res-parcela">R$ 0,00</span>
+                </div>
+                <div class="main-result" id="res-container-veiculo-sugerido" style="display: none;">
+                    <span class="label">Valor Sugerido do Veículo</span>
+                    <span class="value" id="res-veiculo-sugerido">R$ 0,00</span>
+                </div>
+                <div class="result-details">
+                    <div class="detail">
+                        <span class="label">Total Financiado</span>
+                        <span id="res-financiado">R$ 0,00</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Total Pago</span>
+                        <span id="res-total-pago">R$ 0,00</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Total de Juros</span>
+                        <span id="res-total-juros" class="juros-value">R$ 0,00</span>
+                    </div>
+                </div>
+                <div id="feedback-dinamico" class="feedback"></div>
+            </div>
+        </section>
+
+        <section class="comparison-section">
+            <h2>Comparador de Cenários</h2>
+            <div class="comparison-grid" id="comparison-grid">
+                <!-- Cards gerados via JS -->
+            </div>
+        </section>
+
+        <section class="whatsapp-section">
+            <div class="card">
+                <h3>Enviar Proposta</h3>
+                <div class="input-group">
+                    <label for="whatsapp-numero">WhatsApp do Cliente (com DDD)</label>
+                    <input type="text" id="whatsapp-numero" placeholder="5511999999999">
+                </div>
+                <button id="btn-whatsapp" class="btn-primary">Enviar via WhatsApp</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="address">Av. José Gomes da Rocha Leal, 1267 - Centro, Bragança Paulista - SP</p>
+            <p class="phone">(11) 2473-0601</p>
+            <div class="social-links">
+                <a href="https://instagram.com/braganca_veiculos" target="_blank">Instagram</a>
+                <a href="https://www.facebook.com/bragancaveiculosoficial" target="_blank">Facebook</a>
+                <a href="https://bragancaveiculos.com.br/" target="_blank">Website</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
